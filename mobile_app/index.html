@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Needle 2 行動手機助理</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">45M · 14MB</div>
+        <h1>Needle 2 <span>Phone Hub</span></h1>
+      </div>
+      <div class="status-indicator online" id="server-status">
+        <span class="dot"></span>
+        <span class="status-text">離線小模型就緒</span>
+      </div>
+    </header>
+
+    <!-- Quick Presets -->
+    <section class="presets-section">
+      <p class="section-title">💡 點選快速範例或用語音說：</p>
+      <div class="preset-scroll">
+        <button class="preset-pill" onclick="fillQuery('明天早上 7 點 30 分叫我起床')">⏰ 明天 07:30 鬧鐘</button>
+        <button class="preset-pill" onclick="fillQuery('倒數 15 分鐘泡麵時間')">⏳ 倒數 15 分鐘計時</button>
+        <button class="preset-pill" onclick="fillQuery('明天下午 2 點在第二會議室開專案會議')">📅 新增專案會議</button>
+        <button class="preset-pill" onclick="fillQuery('導航到台北 101')">🗺️ 導航到台北 101</button>
+        <button class="preset-pill" onclick="fillQuery('開啟 YouTube')">▶️ 打開 YouTube</button>
+        <button class="preset-pill" onclick="fillQuery('傳簡訊給小明說我會遲到十分鐘')">💬 傳簡訊給小明</button>
+        <button class="preset-pill" onclick="fillQuery('記下一筆靈感：Needle 2 在邊緣設備非常省電')">📝 快速記筆記</button>
+      </div>
+    </section>
+
+    <!-- Chat / Results Stream -->
+    <main class="stream-container" id="stream-container">
+      <div class="welcome-card">
+        <div class="welcome-icon">⚡</div>
+        <h3>本機神經反射助理已啟動</h3>
+        <p>不用繁瑣點選多層選單，直接用自然語言說出你想做的事，Needle 2 會在 10 毫秒內解析為 Android 系統原生指令！</p>
+      </div>
+    </main>
+
+    <!-- Input Bar -->
+    <footer class="app-footer">
+      <div class="input-bar">
+        <button class="btn-mic" id="btn-mic" title="語音輸入" onclick="toggleVoiceInput()">
+          <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+        </button>
+        <input type="text" id="query-input" placeholder="例如：明天早上 8 點鬧鐘、導航到火車站..." autocomplete="off" onkeypress="handleKeyPress(event)">
+        <button class="btn-send" id="btn-send" onclick="submitQuery()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="voice-status" id="voice-status"></div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

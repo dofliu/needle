@@ -95,3 +95,12 @@ needle-ui.*
 *.vocab 
 *.model
 *.cact
+
+# Android & Gradle
+.gradle/
+**/build/
+*.apk
+*.aab
+local.properties
+.idea/
+*.iml
