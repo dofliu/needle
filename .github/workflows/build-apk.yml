@@ -4,14 +4,10 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'android_app/**'
-      - '.github/workflows/build-apk.yml'
-      - 'mobile_app/**'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -27,26 +23,22 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'gradle'
 
-      - name: Grant Execute Permission for Gradlew
-        run: |
-          cd android_app
-          if [ -f "gradlew" ]; then
-            chmod +x gradlew
-          else
-            gradle wrapper
-            chmod +x gradlew
-          fi
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Build Debug APK with Gradle
-        run: |
-          cd android_app
-          ./gradlew assembleDebug --stacktrace
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.7'
+
+      - name: Build Debug APK
+        working-directory: android_app
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: needle-assistant-debug-apk
-          path: android_app/app/build/outputs/apk/debug/app-debug.apk
+          path: android_app/app/build/outputs/apk/debug/*.apk
           retention-days: 14
